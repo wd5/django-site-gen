@@ -3,33 +3,32 @@ settings:
     email: coleifer@gmail.com
     site_email: charlie.leifer@gmail.com
     site_email_password: noclue
-    base_site: /home/charles/public_html/
-    pythonpath:
-        - /home/charles/bin/django
-        - /home/charles/code/
-        - /home/charles/pypath/
+    base_site: /home/charles/envs/
+    requirements_file: requirements.txt
 directories:
-    site_root: '%(base_site)s%(site_name)s.com/%(site_name)s/'
-    wsgi: '%(base_site)s%(site_name)s.com/%(site_name)s/apache/'
-    media: '%(base_site)s%(site_name)s.com/%(site_name)s/media/'
-    templates: '%(base_site)s%(site_name)s.com/%(site_name)s/templates/'
-    logs: '%(base_site)s%(site_name)s.com/logs/'
-    private: '%(base_site)s%(site_name)s.com/private/'
+    - site_root: '%(base_site)s%(site_name)s/'
+    - project_root: '%(site_root)s%(site_name)s/'
+    - wsgi: '%(project_root)sapache/'
+    - media: '%(project_root)smedia/'
+    - templates: '%(project_root)stemplates/'
+    - logs: '%(site_root)slogs/'
+    - private: '%(site_root)sprivate/'
+    - conf: '%(site_root)sconf/'
 files:
-    '%(base_site)s%(site_name)s.com/%(site_name)s/settings.py': settings.py.conf
-    '%(base_site)s%(site_name)s.com/%(site_name)s/urls.py': urls.py.conf
-    '%(base_site)s%(site_name)s.com/%(site_name)s/manage.py': manage.py.conf
-    '%(base_site)s%(site_name)s.com/%(site_name)s/__init__.py': empty.conf
-    '%(base_site)s%(site_name)s.com/logs/apache_error.log': empty.conf
-    '%(base_site)s%(site_name)s.com/logs/apache_access.log': empty.conf
-    '%(base_site)s%(site_name)s.com/logs/nginx_error.log': empty.conf
-    '%(base_site)s%(site_name)s.com/logs/nginx_access.log': empty.conf
-    '%(base_site)s%(site_name)s.com/%(site_name)s/apache/%(site_name)s.wsgi': wsgi.conf
-    '%(base_site)s%(site_name)s.com/apache_%(site_name)s.com': apache.conf
-    '%(base_site)s%(site_name)s.com/nginx_%(site_name)s.com': nginx.conf
-    '%(base_site)s%(site_name)s.com/hosts': hosts.conf
-    '%(base_site)s%(site_name)s.com/ports.conf': ports.conf
+    '%(project_root)ssettings.py': settings.py.conf
+    '%(project_root)surls.py': urls.py.conf
+    '%(project_root)smanage.py': manage.py.conf
+    '%(project_root)s__init__.py': empty.conf
+    '%(logs)sapache_error.log': empty.conf
+    '%(logs)sapache_access.log': empty.conf
+    '%(logs)snginx_error.log': empty.conf
+    '%(logs)snginx_access.log': empty.conf
+    '%(wsgi)s%(site_name)s.wsgi': wsgi.conf
+    '%(conf)sapache_%(site_name)s.com': apache.conf
+    '%(conf)snginx_%(site_name)s.com': nginx.conf
+    '%(conf)shosts': hosts.conf
+    '%(conf)sports.conf': ports.conf
 local_files:
-    '%(base_site)s%(site_name)s.com/local_apache_%(site_name)s.com': apache.conf
-    '%(base_site)s%(site_name)s.com/local_nginx_%(site_name)s.com': nginx.conf
-    '%(base_site)s%(site_name)s.com/local_hosts': hosts.conf
+    '%(conf)slocal_apache_%(site_name)s.com': apache.conf
+    '%(conf)slocal_nginx_%(site_name)s.com': nginx.conf
+    '%(conf)slocal_hosts': hosts.conf
