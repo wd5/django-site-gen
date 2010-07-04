@@ -4,4 +4,5 @@ markdown>=2.0
 psycopg2
 python-memcached
 simplejson
+gunicorn
 -e hg+http://bitbucket.org/andrewgodwin/south/#egg=south

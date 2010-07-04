@@ -28,6 +28,7 @@ files:
     '%(conf)snginx_%(site_name)s.com': nginx.conf
     '%(conf)shosts': hosts.conf
     '%(conf)sports.conf': ports.conf
+    '%(conf)sgunicorn.conf.py': gunicorn.conf
 local_files:
     '%(conf)slocal_apache_%(site_name)s.com': apache.conf
     '%(conf)slocal_nginx_%(site_name)s.com': nginx.conf
