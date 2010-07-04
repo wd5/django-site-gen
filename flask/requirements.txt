@@ -1,4 +1,3 @@
-pysqlite
 flask
 werkzeug
 jinja2
