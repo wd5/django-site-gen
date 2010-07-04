@@ -24,12 +24,12 @@ files:
     '%(logs)snginx_error.log': empty.conf
     '%(logs)snginx_access.log': empty.conf
     '%(wsgi)s%(site_name)s.wsgi': wsgi.conf
-    '%(conf)sapache_%(site_name)s.com': apache.conf
-    '%(conf)snginx_%(site_name)s.com': nginx.conf
+    '%(conf)sapache_%(site_name)s': apache.conf
+    '%(conf)snginx_%(site_name)s': nginx.conf
     '%(conf)shosts': hosts.conf
     '%(conf)sports.conf': ports.conf
     '%(conf)sgunicorn.conf.py': gunicorn.conf
 local_files:
-    '%(conf)slocal_apache_%(site_name)s.com': apache.conf
-    '%(conf)slocal_nginx_%(site_name)s.com': nginx.conf
+    '%(conf)slocal_apache_%(site_name)s': apache.conf
+    '%(conf)slocal_nginx_%(site_name)s': nginx.conf
     '%(conf)slocal_hosts': hosts.conf
