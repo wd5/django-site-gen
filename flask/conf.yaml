@@ -1,0 +1,26 @@
+settings:
+    user: charles
+    base_site: /home/charles/envs/
+    requirements_file: requirements.txt
+    database: 'sqlite3 %(site_name)s.db < schema.sql'
+directories:
+    - site_root: '%(base_site)s%(site_name)s/'
+    - project_root: '%(site_root)s%(site_name)s/'
+    - static: '%(project_root)sstatic/'
+    - templates: '%(project_root)stemplates/'
+    - logs: '%(site_root)slogs/'
+    - private: '%(site_root)sprivate/'
+    - conf: '%(site_root)sconf/'
+files:
+    '%(logs)snginx_error.log': empty.conf
+    '%(logs)snginx_access.log': empty.conf
+    '%(conf)snginx_%(site_name)s': nginx.conf
+    '%(conf)sgunicorn.conf.py': gunicorn.conf
+    '%(project_root)sapp.py': app.py
+    '%(project_root)sschema.sql': schema.sql
+    '%(project_root)srequirements.txt': requirements.txt
+local_files:
+    '%(conf)slocal_nginx_%(site_name)s': nginx.conf
+copy:
+    static: '%(project_root)s'
+    templates: '%(project_root)s'

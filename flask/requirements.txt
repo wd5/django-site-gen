@@ -1,0 +1,5 @@
+pysqlite
+flask
+werkzeug
+jinja2
+gunicorn
