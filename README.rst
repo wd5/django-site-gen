@@ -1,10 +1,8 @@
 django-site-gen
 ===============
 
-a utility script for generating skeleton django sites
-
-it's still pretty tied to my workflow, so check back as I hope to be
-making it more generic.
+a utility script for generating skeleton django sites (and now support
+for other frameworks like flask).
 
 
 What it creates

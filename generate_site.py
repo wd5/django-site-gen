@@ -9,6 +9,8 @@ from django.conf import settings
 from django.template import Context
 from django.template.loader import get_template
 
+DEFAULT_TYPE = 'django'
+
 
 def configure(site_type, site_name, port, config_file='conf.yaml'):
     # configure script to use templates in the current directory
@@ -59,12 +61,16 @@ def write_template(template_name, dest, context):
     f.close()
 
 if __name__ == '__main__':
-    if len(sys.argv) < 4:
+    args = sys.argv[1:]
+    if len(args) == 2:
+        args.insert(0, DEFAULT_TYPE)
+
+    if len(args) < 3:
         print 'Usage: python generate_site.py [site_type] [site_name] [port]'
         sys.exit(-1)
 
     # grap the site name and port it will run on from cmd line
-    site_type, site_name, port = sys.argv[1:4]
+    site_type, site_name, port = args[:3]
     
     config = configure(site_type, site_name, port)
     
