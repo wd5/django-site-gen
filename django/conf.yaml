@@ -5,6 +5,7 @@ settings:
     site_email_password: noclue
     base_site: /home/charles/envs/
     requirements_file: requirements.txt
+    database: 'createdb %(site_name)s_main'
 directories:
     - site_root: '%(base_site)s%(site_name)s/'
     - project_root: '%(site_root)s%(site_name)s/'
@@ -33,3 +34,6 @@ local_files:
     '%(conf)slocal_apache_%(site_name)s': apache.conf
     '%(conf)slocal_nginx_%(site_name)s': nginx.conf
     '%(conf)slocal_hosts': hosts.conf
+copy:
+    media: '%(project_root)s'
+    templates: '%(project_root)s'
