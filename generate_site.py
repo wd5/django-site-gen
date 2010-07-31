@@ -30,11 +30,17 @@ def configure(site_type, site_name, port, config_file='conf.yaml'):
     
     # shhh!
     secret_key = ''.join([choice('abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)') for i in range(50)])
+
+    if '.' in site_name:
+        site_name, site_domain = site_name.rsplit('.', 1)
+    else:
+        site_domain = 'com'
     
     # add site name, port, and other vars to the config before loading up project
     # directories
     config['settings'].update({
         'site_name': site_name,
+        'site_domain': site_domain,
         'port': port,
         'local': False,
         'secret_key': secret_key,
