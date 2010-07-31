@@ -11,7 +11,7 @@ What it creates
 assuming a base directory of /home/user/envs/, django-site-gen
 will create the following when executed like so::
 
-    python generate_site.py twitter 9001
+    python generate_site.py twitter.com 9001
 
 * envs/twitter/ - the root directory of django site - a virtualenv
 * envs/twitter/apache/ - where the wsgi file lives
@@ -24,7 +24,7 @@ will create the following when executed like so::
 if you want to use the flask framework, django-site-gen will
 create the following::
 
-    python generate_site.py flask twitter 9001
+    python generate_site.py flask twitter.com 9001
 
 * envs/twitter/ - the root directory of flask site - a virtualenv
 * envs/twitter/conf/ - gunicorn and nginx confs for local and production
