@@ -30,6 +30,7 @@ files:
     '%(conf)shosts': hosts.conf
     '%(conf)sports.conf': ports.conf
     '%(conf)sgunicorn.conf.py': gunicorn.conf
+    '%(conf)ssite.fcgi': fcgi.conf
     '%(project_root)srequirements.txt': requirements.txt
 local_files:
     '%(conf)slocal_apache_%(site_name)s': apache.conf
