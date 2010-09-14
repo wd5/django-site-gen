@@ -1,57 +1,88 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" 
-   "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<!doctype html>
+<html lang="en" class="no-js">
 <head>
-  <title>{% block title %}{% endblock %}</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta charset="utf-8">
 
-  <meta name="keywords" content="{% block metakeywords %}{% endblock %}" />
-  <meta name="description" content="{% block metadescription %}{% endblock %}" />
-  <link rel="alternate" type="application/rss+xml"  href="{% block rss_link %}{% endblock %}" title="Rss feed">
-  
-  <link href="/media/css/main.css" type="text/css" media="screen" rel="stylesheet" />
-  <link rel="stylesheet" type="text/css" href="/media/css/jquery.lightbox-0.5.css" />
-  
-  <script src="/media/js/jquery-1.3.2.min.js"></script>
-  <script src="/media/js/jquery.lightbox-0.5.min.js"></script>
-  <script type="text/javascript">
-    $(function() {
-      $('a.lightbox').lightBox(); // Select all links with lightbox class
-    });
-  </script>
-  {% block extra_head %}{% endblock %}
+  <!-- www.phpied.com/conditional-comments-block-downloads/ -->
+  <!--[if IE]><![endif]-->
+
+  <!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame 
+       Remove this if you use the .htaccess -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  <title>{% block title %}{% endblock %} | {{ site_name }}</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--  Mobile viewport optimized: j.mp/bplateviewport -->
+  <meta name="viewport" content="width=device-width; initial-scale=1.0">
+
+  <!-- CSS : implied media="all" -->
+  <link rel="stylesheet" href="{{ MEDIA_URL }}css/style.css?v=1">
+
+  <!-- For the less-enabled mobile browsers like Opera Mini -->
+  <link rel="stylesheet" media="handheld" href="{{ MEDIA_URL }}css/handheld.css?v=1">
+
+ 
+  <!-- All JavaScript at the bottom, except for Modernizr which enables HTML5 elements & feature detects -->
+  <script src="{{ MEDIA_URL }}js/modernizr-1.5.min.js"></script>
+
 </head>
 
-<body class="home blog">
-  <div class="skip-content"><a href="#content">Skip to content</a></div>
-  <div id="header" class="clear">
-  </div><!--end header-->
-  
-  <div class="content-background">
-    <div class="wrapper">
-      <div id="content">
-        <h2 class="pagetitle">{% block content_title %}{% endblock %}</h2>
-        {% block content %}{% endblock %}
-      </div><!--end content-->
-    </div><!--end wrapper-->
-  </div><!--end content-background-->
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
 
-  <div id="footer">
-    <div class="wrapper clear">
-      <div id="copyright">
-        <p class="copyright-notice">Copyright &copy; 2010.</p>
-      </div><!--end copyright-->
-    </div><!--end wrapper-->
-  </div><!--end footer-->
+<!--[if lt IE 7 ]> <body class="ie6"> <![endif]-->
+<!--[if IE 7 ]>    <body class="ie7"> <![endif]-->
+<!--[if IE 8 ]>    <body class="ie8"> <![endif]-->
+<!--[if IE 9 ]>    <body class="ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <body> <!--<![endif]-->
+
+  <div id="container">
+    <header>
+      <nav>
+        <ul>
+          <li><a class="active" href="/">Home</a></li>
+          <li><a href="/about/">About</a></li>
+        </ul>
+      </nav>
+    </header>
+  
+    <div id="main">
+      <h1>{% block content_title %}{% endblock %}</h1>
+      {% block content %}{% endblock %}
+    </div>
+    
+    <footer>{% block footer %}{% endblock %}</footer>
+  </div> <!--! end of #container -->
+
+
+  <!-- Javascript at the bottom for fast page loading -->
+
+  <!-- Grab Google CDN's jQuery. fall back to local if necessary -->
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+  <script>!window.jQuery && document.write('<script src="{{ MEDIA_URL }}js/jquery-1.4.2.min.js"><\/script>')</script>
+
+
+  <script src="{{ MEDIA_URL }}js/plugins.js?v=1"></script>
+  <script src="{{ MEDIA_URL }}js/script.js?v=1"></script>
+
+  <!--[if lt IE 7 ]>
+      <script src="{{ MEDIA_URL }}js/dd_belatedpng.js?v=1"></script>
+  <![endif]-->
+
   {% comment %}
-  <script type="text/javascript">
-	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-  </script>
-  <script type="text/javascript">
-    var pageTracker = _gat._getTracker("");
-	  pageTracker._trackPageview();
+  <script>
+   var _gaq = [['_setAccount', 'UA-XXXXX-X'], ['_trackPageview']];
+   (function(d, t) {
+    var g = d.createElement(t),
+        s = d.getElementsByTagName(t)[0];
+    g.async = true;
+    g.src = ('https:' == location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    s.parentNode.insertBefore(g, s);
+   })(document, 'script');
   </script>
   {% endcomment %}
+  
 </body>
-</html> 
+</html>
+
