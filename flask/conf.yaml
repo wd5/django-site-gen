@@ -19,6 +19,7 @@ files:
     '%(project_root)sapp.py': app.py
     '%(project_root)sschema.sql': schema.sql
     '%(project_root)srequirements.txt': requirements.txt
+    '%(project_root)srun_gunicorn.sh': run_gunicorn.sh
 local_files:
     '%(conf)slocal_nginx_%(site_name)s': nginx.conf
 copy:
