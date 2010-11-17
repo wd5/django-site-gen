@@ -11,10 +11,10 @@ directories:
     - project_root: '%(site_root)s%(site_name)s/'
     - wsgi: '%(project_root)sapache/'
     - media: '%(project_root)smedia/'
+    - conf: '%(project_root)sconf/'
     - templates: '%(project_root)stemplates/'
     - logs: '%(site_root)slogs/'
     - private: '%(site_root)sprivate/'
-    - conf: '%(site_root)sconf/'
 files:
     '%(project_root)ssettings.py': settings.py.conf
     '%(project_root)surls.py': urls.py.conf
