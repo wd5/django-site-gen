@@ -8,9 +8,9 @@ directories:
     - project_root: '%(site_root)s%(site_name)s/'
     - static: '%(project_root)sstatic/'
     - templates: '%(project_root)stemplates/'
+    - conf: '%(project_root)sconf/'
     - logs: '%(site_root)slogs/'
     - private: '%(site_root)sprivate/'
-    - conf: '%(site_root)sconf/'
 files:
     '%(logs)snginx_error.log': empty.conf
     '%(logs)snginx_access.log': empty.conf
