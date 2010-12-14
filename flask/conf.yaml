@@ -16,6 +16,7 @@ files:
     '%(logs)snginx_access.log': empty.conf
     '%(conf)snginx_%(site_name)s': nginx.conf
     '%(conf)sgunicorn.conf.py': gunicorn.conf
+    '%(conf)s%(site_name)s_supervisord.conf': supervisord.conf
     '%(project_root)sapp.py': app.py
     '%(project_root)sschema.sql': schema.sql
     '%(project_root)srequirements.txt': requirements.txt

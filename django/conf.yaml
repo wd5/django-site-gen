@@ -32,6 +32,7 @@ files:
     '%(conf)sgunicorn.conf.py': gunicorn.conf
     '%(conf)ssite.fcgi': fcgi.conf
     '%(conf)s%(site_name)s_upstart.conf': upstart.conf
+    '%(conf)s%(site_name)s_supervisord.conf': supervisord.conf
     '%(project_root)srequirements.txt': requirements.txt
 local_files:
     '%(conf)slocal_apache_%(site_name)s': apache.conf
