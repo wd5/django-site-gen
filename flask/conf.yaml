@@ -9,20 +9,24 @@ directories:
     - static: '%(project_root)sstatic/'
     - templates: '%(project_root)stemplates/'
     - conf: '%(project_root)sconf/'
+    - production_conf: '%(conf)sproduction/'
+    - staging_conf: '%(conf)sstaging/'
     - logs: '%(site_root)slogs/'
     - private: '%(site_root)sprivate/'
 files:
     '%(logs)snginx_error.log': empty.conf
     '%(logs)snginx_access.log': empty.conf
-    '%(conf)snginx_%(site_name)s': nginx.conf
-    '%(conf)sgunicorn.conf.py': gunicorn.conf
-    '%(conf)s%(site_name)s_supervisord.conf': supervisord.conf
+    '%(production_conf)snginx_%(site_name)s': nginx.conf
+    '%(production_conf)sgunicorn.conf.py': gunicorn.conf
+    '%(production_conf)s%(site_name)s_supervisord.conf': supervisord.conf
     '%(project_root)sapp.py': app.py
     '%(project_root)sschema.sql': schema.sql
     '%(project_root)srequirements.txt': requirements.txt
     '%(project_root)srun_gunicorn.sh': run_gunicorn.sh
-local_files:
-    '%(conf)slocal_nginx_%(site_name)s': nginx.conf
+staging_files:
+    '%(staging_conf)snginx_%(site_name)s': nginx.conf
+    '%(staging_conf)sgunicorn.conf.py': gunicorn.conf
+    '%(staging_conf)s%(site_name)s_supervisord.conf': supervisord.conf
 copy:
     static: '%(project_root)s'
     templates: '%(project_root)s'

@@ -3,13 +3,13 @@
 import os
 import sys
 import yaml
+
+from optparse import OptionParser
 from random import choice
 
 from django.conf import settings
 from django.template import Context
 from django.template.loader import get_template
-
-DEFAULT_TYPE = 'django'
 
 
 def configure(site_type, site_name, port, config_file='conf.yaml'):
@@ -54,34 +54,60 @@ def configure(site_type, site_name, port, config_file='conf.yaml'):
 
     return config
 
-def write_template(template_name, dest, context):
+def write_template(template_name, dest, context, safe=False):
     """
     given a template name, a destination, and a context,
     write a rendered template version to dest
     """
-    t = get_template(template_name)
-    contents = t.render(context)
-    f = open(dest % context, 'w')
-    print "Writing %s" % (dest % context)
-    f.write(contents)
-    f.close()
+    filename = dest % context
+    if os.path.isfile(filename) and safe:
+        print 'Found %s, exiting' % filename
+    else:
+        t = get_template(template_name)
+        contents = t.render(context)
+        f = open(filename, 'w')
+        print "Writing %s" % (filename)
+        f.write(contents)
+        f.close()
 
 if __name__ == '__main__':
-    args = sys.argv[1:]
-    if len(args) == 2:
-        args.insert(0, DEFAULT_TYPE)
+    parser = OptionParser(usage='%prog SITENAME [options]')
+    parser.add_option('-t', '--templates', dest='templates', default=False,
+                      help='Only copy template files', action='store_true')
+    parser.add_option('-s', '--safe', dest='safe', default=False,
+                      help='Do not overwrite any files encountered', action='store_true')
+    parser.add_option('-f', '--framework', dest='framework', default='django',
+                      help='type of site to create')
+    parser.add_option('-p', '--port', dest='port', default='8080',
+                      help='port to run site on (must be unused)')
+    parser.add_option('--no-virtualenv', dest='novenv', default=False,
+                      help='Do not create virtualenv for site', action='store_true')
+    parser.add_option('--no-database', dest='nodb', default=False,
+                      help='Do not attempt to create a database', action='store_true')
+    parser.add_option('--no-copy', dest='nocp', default=False,
+                      help='Do not attempt to copy any directories', action='store_true')
+    parser.add_option('--no-pip', dest='nopip', default=False,
+                      help='Do not attempt to install from requirements file', action='store_true')
+    (options, args) = parser.parse_args()
 
-    if len(args) < 3:
-        print 'Usage: python generate_site.py [site_type] [site_name] [port]'
+    if len(sys.argv) < 2:
+        parser.print_help()
         sys.exit(-1)
 
+    install_venv = not (options.novenv or options.templates)
+    install_db = not (options.nodb or options.templates)
+    should_copy = not (options.nocp or options.templates)
+    install_pip = not (options.nopip or options.templates)
+
     # grap the site name and port it will run on from cmd line
-    site_type, site_name, port = args[:3]
+    site_type = options.framework
+    site_name = sys.argv[1]
+    port = int(options.port)
     
     config = configure(site_type, site_name, port)
     
     file_mapping = config['files'] # destination: template
-    local_file_mapping = config.get('local_files', []) # destination: template
+    staging_file_mapping = config.get('staging_files', []) # destination: template
     directories = config['directories'] # list of shortcut: path
     copy_dirs = config['copy'] # dirs to copy into new env
     config = config['settings'] # move settings to top level
@@ -89,9 +115,10 @@ if __name__ == '__main__':
     # create a django context to use for rendering project templates
     context = Context(config)
     
-    # create a new virtualenv for the project
-    print 'Creating a virtualenv for the project'
-    os.system('cd %(base_site)s && virtualenv --no-site-packages %(site_name)s' % context)
+    if install_venv:
+        # create a new virtualenv for the project
+        print 'Creating a virtualenv for the project'
+        os.system('cd %(base_site)s && virtualenv --no-site-packages %(site_name)s' % context)
 
     # create the directory structure for the site
     for directory_dict in directories:
@@ -104,23 +131,25 @@ if __name__ == '__main__':
 
     # write all files
     for destination, template_name in file_mapping.items():
-        write_template(template_name, destination, context)
+        write_template(template_name, destination, context, options.safe)
 
-    # write local versions of the config files
-    context['local'] = True
-    for destination, template_name in local_file_mapping.items():
-        write_template(template_name, destination, context)
+    # write staging versions of the config files
+    context['staging'] = True
+    for destination, template_name in staging_file_mapping.items():
+        write_template(template_name, destination, context, options.safe)
 
-    for src, dest in copy_dirs.items():
-        dest = dest % config
-        print 'Copying %s' % src
-        os.system('cp -R %s %s' % (src, dest))
+    if should_copy:
+        flags = options.safe and '-nR' or '-R'
+        for src, dest in copy_dirs.items():
+            dest = dest % config
+            print 'Copying %s' % src
+            os.system('cp %s %s %s' % (flags, src, dest))
 
-    if 'database' in config:
+    if install_db and 'database' in config:
         print 'Creating database...' % context
         os.system(config['database'] % context)
 
-    if 'requirements_file' in config:
+    if install_pip and 'requirements_file' in config:
         pip_req = config['requirements_file']
         print 'Loading requirements from %s' % pip_req 
         os.system('pip install -E %s -r %s' % \

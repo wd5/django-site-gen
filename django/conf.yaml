@@ -12,6 +12,8 @@ directories:
     - wsgi: '%(project_root)sapache/'
     - media: '%(project_root)smedia/'
     - conf: '%(project_root)sconf/'
+    - production_conf: '%(conf)sproduction/'
+    - staging_conf: '%(conf)sstaging/'
     - templates: '%(project_root)stemplates/'
     - logs: '%(site_root)slogs/'
     - private: '%(site_root)sprivate/'
@@ -25,19 +27,26 @@ files:
     '%(logs)snginx_error.log': empty.conf
     '%(logs)snginx_access.log': empty.conf
     '%(wsgi)s%(site_name)s.wsgi': wsgi.conf
-    '%(conf)sapache_%(site_name)s': apache.conf
-    '%(conf)snginx_%(site_name)s': nginx.conf
-    '%(conf)shosts': hosts.conf
-    '%(conf)sports.conf': ports.conf
-    '%(conf)sgunicorn.conf.py': gunicorn.conf
-    '%(conf)ssite.fcgi': fcgi.conf
-    '%(conf)s%(site_name)s_upstart.conf': upstart.conf
-    '%(conf)s%(site_name)s_supervisord.conf': supervisord.conf
+    '%(production_conf)sapache_%(site_name)s': apache.conf
+    '%(production_conf)snginx_%(site_name)s': nginx.conf
+    '%(production_conf)shosts': hosts.conf
+    '%(production_conf)sports.conf': ports.conf
+    '%(production_conf)sgunicorn.conf.py': gunicorn.conf
+    '%(production_conf)ssite.fcgi': fcgi.conf
+    '%(production_conf)s%(site_name)s_upstart.conf': upstart.conf
+    '%(production_conf)s%(site_name)s_supervisord.conf': supervisord.conf
     '%(project_root)srequirements.txt': requirements.txt
-local_files:
-    '%(conf)slocal_apache_%(site_name)s': apache.conf
-    '%(conf)slocal_nginx_%(site_name)s': nginx.conf
-    '%(conf)slocal_hosts': hosts.conf
+staging_files:
+    '%(project_root)sdebug.py': debug.py.conf
+    '%(wsgi)s%(site_name)s_staging.wsgi': wsgi.conf
+    '%(staging_conf)sapache_%(site_name)s': apache.conf
+    '%(staging_conf)snginx_%(site_name)s': nginx.conf
+    '%(staging_conf)shosts': hosts.conf
+    '%(staging_conf)sports.conf': ports.conf
+    '%(staging_conf)sgunicorn.conf.py': gunicorn.conf
+    '%(staging_conf)ssite.fcgi': fcgi.conf
+    '%(staging_conf)s%(site_name)s_upstart.conf': upstart.conf
+    '%(staging_conf)s%(site_name)s_supervisord.conf': supervisord.conf
 copy:
     media: '%(project_root)s'
     templates: '%(project_root)s'
