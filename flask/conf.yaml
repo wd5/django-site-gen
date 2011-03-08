@@ -18,6 +18,7 @@ files:
     '%(logs)snginx_access.log': empty.conf
     '%(production_conf)snginx_%(site_name)s': nginx.conf
     '%(production_conf)sgunicorn.conf.py': gunicorn.conf
+    '%(production_conf)sgevent.conf.py': gevent.conf
     '%(production_conf)s%(site_name)s_supervisord.conf': supervisord.conf
     '%(project_root)sapp.py': app.py
     '%(project_root)sschema.sql': schema.sql
@@ -26,6 +27,7 @@ files:
 staging_files:
     '%(staging_conf)snginx_%(site_name)s': nginx.conf
     '%(staging_conf)sgunicorn.conf.py': gunicorn.conf
+    '%(staging_conf)sgevent.conf.py': gevent.conf
     '%(staging_conf)s%(site_name)s_supervisord.conf': supervisord.conf
 copy:
     static: '%(project_root)s'

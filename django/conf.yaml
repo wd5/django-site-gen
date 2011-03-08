@@ -32,6 +32,7 @@ files:
     '%(production_conf)shosts': hosts.conf
     '%(production_conf)sports.conf': ports.conf
     '%(production_conf)sgunicorn.conf.py': gunicorn.conf
+    '%(production_conf)sgevent.conf.py': gevent.conf
     '%(production_conf)ssite.fcgi': fcgi.conf
     '%(production_conf)s%(site_name)s_upstart.conf': upstart.conf
     '%(production_conf)s%(site_name)s_supervisord.conf': supervisord.conf
@@ -44,6 +45,7 @@ staging_files:
     '%(staging_conf)shosts': hosts.conf
     '%(staging_conf)sports.conf': ports.conf
     '%(staging_conf)sgunicorn.conf.py': gunicorn.conf
+    '%(staging_conf)sgevent.conf.py': gevent.conf
     '%(staging_conf)ssite.fcgi': fcgi.conf
     '%(staging_conf)s%(site_name)s_upstart.conf': upstart.conf
     '%(staging_conf)s%(site_name)s_supervisord.conf': supervisord.conf
