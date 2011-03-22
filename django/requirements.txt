@@ -1,4 +1,4 @@
-django==1.2.1
+-e svn+http://code.djangoproject.com/svn/django/branches/releases/1.2.X/#egg=django12X
 docutils
 markdown>=2.0
 psycopg2
