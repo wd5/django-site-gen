@@ -70,6 +70,11 @@ def write_template(template_name, dest, context, safe=False):
         f.write(contents)
         f.close()
 
+        if '.' in filename:
+            base, ext = filename.rsplit('.', 1)
+            if ext.lower() in ('sh', 'fcgi'):
+                os.chmod(filename, 0755)
+
 if __name__ == '__main__':
     parser = OptionParser(usage='%prog SITENAME [options]')
     parser.add_option('-t', '--templates', dest='templates', default=False,
