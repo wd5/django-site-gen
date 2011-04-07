@@ -13,13 +13,11 @@ will create the following when executed like so::
 
     python generate_site.py twitter.com -p 9001
 
-* envs/twitter/ - the root directory of django site - a virtualenv
-* envs/twitter/apache/ - where the wsgi file lives
-* envs/twitter/conf/ - apache, gunicorn and nginx confs for local and production
-* envs/twitter/logs/ - apache, gunicorn and nginx logs
-* envs/twitter/twitter/ - where the site, site apps, settings, etc live
-* envs/twitter/twitter/media/ - site media served by nginx
-* envs/twitter/twitter/templates/ - site template dirs
+.. image:: http://charlesleifer.com/media/images/photos/django-site-gen.png
+
+
+using for flask
+^^^^^^^^^^^^^^^
 
 if you want to use the flask framework, django-site-gen will
 create the following::
