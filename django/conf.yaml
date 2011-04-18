@@ -52,5 +52,5 @@ staging_files:
     '%(staging_conf)s%(site_name)s_supervisord.conf': supervisord.conf
     '%(staging_conf)squeue_consumer.sh': queue.sh.conf
 copy:
-    media: '%(project_root)s'
+    static: '%(project_root)s'
     templates: '%(project_root)s'

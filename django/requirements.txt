@@ -1,5 +1,4 @@
--e svn+http://code.djangoproject.com/svn/django/branches/releases/1.2.X/#egg=django12X
-docutils
+-e svn+http://code.djangoproject.com/svn/django/branches/releases/1.3.X/#egg=django13X
 markdown>=2.0
 psycopg2
 python-memcached
