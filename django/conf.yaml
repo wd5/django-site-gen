@@ -36,7 +36,7 @@ files:
     '%(production_conf)ssite.fcgi': fcgi.conf
     '%(production_conf)s%(site_name)s_upstart.conf': upstart.conf
     '%(production_conf)s%(site_name)s_supervisord.conf': supervisord.conf
-    '%(production_conf)squeue_consumer.sh': queue.sh.conf
+    '%(production_conf)s%(site_name)s_queue_supervisord.conf': queue_consumer.conf
     '%(project_root)srequirements.txt': requirements.txt
 staging_files:
     '%(project_root)sdebug.py': debug.py.conf
@@ -50,7 +50,7 @@ staging_files:
     '%(staging_conf)ssite.fcgi': fcgi.conf
     '%(staging_conf)s%(site_name)s_upstart.conf': upstart.conf
     '%(staging_conf)s%(site_name)s_supervisord.conf': supervisord.conf
-    '%(staging_conf)squeue_consumer.sh': queue.sh.conf
+    '%(staging_conf)s%(site_name)s_queue_supervisord.conf': queue_consumer.conf
 copy:
     static: '%(project_root)s'
     templates: '%(project_root)s'
