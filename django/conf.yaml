@@ -54,3 +54,5 @@ staging_files:
 copy:
     static: '%(project_root)s'
     templates: '%(project_root)s'
+scripts:
+    - 'fix_manage.py'
