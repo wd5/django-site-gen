@@ -70,7 +70,7 @@ def write_template(template_name, dest, context, safe=False):
         contents = t.render(context)
         f = open(filename, 'w')
         print "Writing %s" % (filename)
-        f.write(contents)
+        f.write(contents.encode('utf-8'))
         f.close()
 
         if '.' in filename:
