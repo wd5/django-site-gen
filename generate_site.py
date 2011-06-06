@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import imp
 import os
 import sys
 import yaml
@@ -98,6 +99,8 @@ if __name__ == '__main__':
     if len(sys.argv) < 2:
         parser.print_help()
         sys.exit(-1)
+    
+    current_dir = os.path.dirname(os.path.realpath(__file__))
 
     install_venv = not (options.novenv or options.templates)
     install_db = not (options.nodb or options.templates)
@@ -112,10 +115,13 @@ if __name__ == '__main__':
     config = configure(site_type, site_name, port)
     
     file_mapping = config['files'] # destination: template
-    staging_file_mapping = config.get('staging_files', []) # destination: template
+    staging_file_mapping = config.get('staging_files', {}) # destination: template
     directories = config['directories'] # list of shortcut: path
     copy_dirs = config['copy'] # dirs to copy into new env
+    scripts = config.get('scripts', [])
     config = config['settings'] # move settings to top level
+    
+    install_venv = install_venv and config.get('virtualenv', True)
     
     # create a django context to use for rendering project templates
     context = Context(config)
@@ -159,5 +165,22 @@ if __name__ == '__main__':
         print 'Loading requirements from %s' % pip_req 
         os.system('pip install -E %s -r %s' % \
                   (context['site_root'], pip_req))
+    
+    if scripts:
+        # allow arbitrary scripts to get executed at the end of processing
+        scripts_dir = os.path.join(current_dir, site_type, 'scripts')
+        print 'Loading scripts from %s' % scripts_dir
+        
+        for script in scripts:
+            try:
+                script_module = imp.load_source(script.split('.')[0], os.path.join(scripts_dir, script))
+            except ImportError:
+                print 'Error importing "%s" -- skipped' % script
+            else:
+                hook = getattr(script_module, 'script_main', None)
+                if not hook:
+                    print 'Error, "script_main" not found in script "%s"' % script
+                else:
+                    hook(config)
 
     print 'Done!'
