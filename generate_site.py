@@ -2,6 +2,7 @@
 
 import imp
 import os
+import subprocess
 import sys
 import yaml
 
@@ -32,10 +33,11 @@ def configure(site_type, site_name, port, config_file='conf.yaml'):
     # shhh!
     secret_key = ''.join([choice('abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)') for i in range(50)])
 
-    if '.' in site_name:
-        site_name, site_domain = site_name.rsplit('.', 1)
-    else:
-        site_domain = 'com'
+    site_domain = 'com'
+    
+    if not config['settings'].get('ignore_domain'):
+        if '.' in site_name:
+            site_name, site_domain = site_name.rsplit('.', 1)
     
     # add site name, port, and other vars to the config before loading up project
     # directories
@@ -172,15 +174,21 @@ if __name__ == '__main__':
         print 'Loading scripts from %s' % scripts_dir
         
         for script in scripts:
-            try:
-                script_module = imp.load_source(script.split('.')[0], os.path.join(scripts_dir, script))
-            except ImportError:
-                print 'Error importing "%s" -- skipped' % script
-            else:
-                hook = getattr(script_module, 'script_main', None)
-                if not hook:
-                    print 'Error, "script_main" not found in script "%s"' % script
+            script_file = os.path.join(scripts_dir, script)
+            print 'Executing "%s"' % script_file
+            
+            if script.endswith('.py'):
+                try:
+                    script_module = imp.load_source(script.split('.')[0], script_file)
+                except ImportError:
+                    print 'Error importing "%s" -- skipped' % script
                 else:
-                    hook(config)
+                    hook = getattr(script_module, 'script_main', None)
+                    if not hook:
+                        print 'Error, "script_main" not found in script "%s"' % script
+                    else:
+                        hook(config)
+            else:
+                subprocess.call([script_file, context['site_name']])
 
     print 'Done!'
