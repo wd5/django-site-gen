@@ -1,0 +1,24 @@
+settings:
+    user: charles
+    email: coleifer@gmail.com
+    site_email: charlie.leifer@gmail.com
+    site_email_password: noclue
+    base_site: /home/charles/tmp/
+    requirements_file: requirements.txt
+directories:
+    - site_root: '%(base_site)s%(site_name)s/'
+    - project_root: '%(site_root)sapp/'
+    - media: '%(project_root)smedia/'
+    - templates: '%(project_root)stemplates/'
+    - logs: '%(site_root)slogs/'
+files:
+    '%(project_root)ssettings.py': settings.py.conf
+    '%(project_root)surls.py': urls.py.conf
+    '%(project_root)smanage.py': manage.py.conf
+    '%(project_root)s__init__.py': empty.conf
+    '%(project_root)srequirements.txt': requirements.txt
+copy:
+    static: '%(project_root)s'
+    templates: '%(project_root)s'
+scripts:
+    - 'fix_manage.py'

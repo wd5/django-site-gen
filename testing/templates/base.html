@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+  <meta charset="utf-8">
+
+  <!--[if IE]><![endif]-->
+
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  <title>{% block title %}{% endblock %} | {{ site_name }}</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <meta name="viewport" content="width=device-width; initial-scale=1.0">
+
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/style.css?v=1">
+  <link rel="stylesheet" media="handheld" href="{{ STATIC_URL }}css/handheld.css?v=1">
+ 
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+  <script>!window.jQuery && document.write('<script src="{{ STATIC_URL }}js/jquery-1.4.2.min.js"><\/script>')</script>
+
+  <script src="{{ STATIC_URL }}js/modernizr-1.5.min.js"></script>
+  {% block extra_script %}{% endblock %}
+</head>
+
+<body class="{% block body_class %}{% endblock %}">
+  <div id="container">
+    {% block header_wrapper %}
+    <div id="header_wrapper">
+      <header>
+        <nav>
+          <ul>
+            <li><a class="active" href="/">Home</a></li>
+            <li><a href="/about/">About</a></li>
+          </ul>
+        </nav>
+        
+        {% if messages %}
+          <ul class="messages">
+            {% for message in messages %}
+              <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      </header>
+    </div>
+    {% endblock %}
+  
+    {% block content_wrapper %}
+    <div id="main">
+      <h1>{% block content_title %}{% endblock %}</h1>
+      {% block content %}{% endblock %}
+    </div>
+    {% endblock %}
+
+    {% block sidebar_wrapper %}
+    <div id="sidebar">
+      {% block sidebar %}{% endblock %}
+    </div>
+    {% endblock %}
+    
+    {% block footer_wrapper %}
+    <div id="footer_wrapper">
+      <footer>{% block footer %}{% endblock %}</footer>
+    </div>
+    {% endblock %}
+  </div> <!--! end of #container -->
+
+  {% comment %}
+  <script>
+   var _gaq = [['_setAccount', 'UA-XXXXX-X'], ['_trackPageview']];
+   (function(d, t) {
+    var g = d.createElement(t),
+        s = d.getElementsByTagName(t)[0];
+    g.async = true;
+    g.src = ('https:' == location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    s.parentNode.insertBefore(g, s);
+   })(document, 'script');
+  </script>
+  {% endcomment %}
+</body>
+</html>
+
