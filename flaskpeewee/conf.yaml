@@ -19,11 +19,14 @@ files:
     '%(production_conf)sgunicorn.conf.py': gunicorn.conf
     '%(production_conf)sgevent.conf.py': gevent.conf
     '%(production_conf)s%(site_name)s_supervisord.conf': supervisord.conf
+    '%(production_conf)s%(site_name)s_skew_supervisord.conf': skew_supervisord.conf
+    '%(project_root)s__init__.py': empty.conf
     '%(project_root)sadmin.py': admin.py
     '%(project_root)sapi.py': api.py
     '%(project_root)sapp.py': app.py
     '%(project_root)sauth.py': auth.py
     '%(project_root)sconfig.py': config.py
+    '%(project_root)sskew_config.py': skew_config.py
     '%(project_root)smain.py': main.py
     '%(project_root)smodels.py': models.py
     '%(project_root)sviews.py': views.py
