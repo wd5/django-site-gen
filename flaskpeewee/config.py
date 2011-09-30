@@ -1,3 +1,7 @@
+import os
+
+APP_ROOT = os.path.dirname(os.path.realpath(__file__))
+
 class Configuration(object):
     DATABASE = {
         'name': '{{ site_name }}.db',
