@@ -1,7 +1,7 @@
 from flask import Flask
 
 from flaskext.db import Database
-from skew.queue import Invoker
+from huey.queue import Invoker
 
 from config import Configuration, QueueConfiguration
 
