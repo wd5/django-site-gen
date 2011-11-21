@@ -1,8 +1,8 @@
 import logging
 import os
 
-from skew.backends.redis_backend import RedisQueue
-from skew.bin.config import BaseConfiguration
+from huey.backends.redis_backend import RedisQueue, RedisDataStore
+from huey.bin.config import BaseConfiguration
 
 
 APP_ROOT = os.path.dirname(os.path.realpath(__file__))
@@ -21,6 +21,7 @@ class Configuration(object):
 
 
 class QueueConfiguration(BaseConfiguration):
-    QUEUE = RedisQueue('{{ site_name }}', 'localhost:6379:0')
-    LOGFILE = '{{ logs }}skew.log'
+    QUEUE = RedisQueue('{{ site_name }}')
+    RESULT_STORE = RedisDataStore('{{ site_name }}_data')
+    LOGFILE = '{{ logs }}huey.log'
     LOGLEVEL = logging.DEBUG
