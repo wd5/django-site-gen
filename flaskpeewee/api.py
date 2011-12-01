@@ -1,4 +1,4 @@
-from flaskext.rest import RestAPI, RestResource, UserAuthentication, AdminAuthentication
+from flask_peewee.rest import RestAPI, RestResource, UserAuthentication, AdminAuthentication
 
 from app import app
 from auth import auth

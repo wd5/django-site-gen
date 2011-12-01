@@ -1,6 +1,6 @@
 from flask import Flask
 
-from flaskext.db import Database
+from flask_peewee.db import Database
 from huey.queue import Invoker
 
 from config import Configuration, QueueConfiguration
