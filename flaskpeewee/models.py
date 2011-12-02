@@ -1,12 +1,12 @@
-from hashlib import sha1
 import datetime
 
+from flask_peewee.auth import BaseUser
 from peewee import *
 
 from app import db
 
 
-class User(db.Model):
+class User(db.Model, BaseUser):
     username = CharField()
     password = CharField()
     email = CharField()
@@ -16,6 +16,3 @@ class User(db.Model):
 
     def __unicode__(self):
         return self.username
-
-    def set_password(self, password):
-        self.password = sha1(password).hexdigest()
