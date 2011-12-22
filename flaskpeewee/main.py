@@ -3,6 +3,8 @@ from app import app, db
 from auth import *
 from admin import admin
 from api import api
+from commands import *
+from config import QueueConfiguration
 from models import *
 from views import *
 
