@@ -11,4 +11,4 @@ app.config.from_object(Configuration)
 
 db = Database(app)
 
-invoker = Invoker(QueueConfiguration.QUEUE)
+invoker = Invoker(QueueConfiguration.QUEUE, QueueConfiguration.RESULT_STORE)
