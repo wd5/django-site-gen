@@ -1,0 +1,10 @@
+{% if form.non_field_errors %}
+  <div class="alert-message block-message error">
+    <p>There were <strong>errors</strong> with your form submission</p>
+    <ul>
+      {% for error in form.non_field_errors %}
+        <li>{{ error }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endif %}
