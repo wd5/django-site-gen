@@ -1,0 +1,16 @@
+{% extends "registration/base_registration.html" %}
+
+
+{% block title %}Log out{% endblock %}
+{% block body_class %}{{ block.super }} logout_form{% endblock %}
+
+
+{% block content_title %}
+  <h2>Log out</h2>
+{% endblock %}
+
+
+{% block content %}
+  <p>You have been successfully logged out</p>
+  <p>Return to the <a href="/">home page</a></p>
+{% endblock %}
