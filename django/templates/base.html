@@ -1,12 +1,14 @@
 <!doctype html>
 <html>
   <head>
-    <title>flask-peewee site shell</title>
+    <title>django site shell</title>
     <link rel=stylesheet type=text/css href="{{ STATIC_URL }}css/bootstrap.min.css" />
+    <link rel=stylesheet type=text/css href="{{ STATIC_URL }}css/bootstrap.min.responsive.css" />
     <link rel=stylesheet type=text/css href="{{ STATIC_URL }}css/style.css" />
     {% block extra_head %}{% endblock %}
-    <script src="{{ STATIC_URL }}js/jquery-1.4.2.min.js" type="text/javascript"></script>
-    <script src="{{ STATIC_URL }}js/bootstrap-alerts.js"></script>
+    <script src="{{ STATIC_URL }}js/jquery.min.js" type="text/javascript"></script>
+    <script src="{{ STATIC_URL }}js/bootstrap-alert.js"></script>
+    <script src="{{ STATIC_URL }}js/bootstrap-dropdown.js"></script>
     {% block extra_scripts %}{% endblock %}
     {% comment %}
     <script type="text/javascript">
@@ -24,23 +26,32 @@
   </head>
   
   <body>
-  
-    <div class="topbar">
-      <div class="fill">
-        <div class="container">
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container-fluid">
           <a class="brand" href="/">Branding</a>
 
           <ul class="nav">
-            <li><a href="#">Link 1</a></li>
+            <li><a class="active" href="#">Link 1</a></li>
             <li><a href="#">Link 2</a></li>
+            <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#">Dropdown <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li class="divider"></li>
+                <li><a href="#">Separated link</a></li>
+              </ul>
+            </li>
           </ul>
-          {% if request.user.is_authenticated %}
-          <form action="/accounts/logout/?next={{ request.path }}" class="pull-right" method="post">
+          {% if user %}
+          <form action="/accounts/logout/?next={{ request.path }}" class="navbar-form pull-right" method="post">
             {% csrf_token %}
             <button class="btn" type="submit">Log out</button>
           </form>
           {% else %}
-          <form action="/accounts/login/?next={{ request.path }}" class="pull-right" method="post">
+          <form action="/accounts/login/?next={{ request.path }}" class="navbar-form pull-right" method="post">
             {% csrf_token %}
             <input class="input-small" name="username" type="text" placeholder="Username">
             <input class="input-small" name="password" type="password" placeholder="Password">
@@ -51,31 +62,37 @@
       </div>
     </div>
   
-    <div class="container">
-      <div class="content">
-          {% for message in messages %}
-          <div class="alert-message {{ message.tags }}">
-            <a class="close" href="#">×</a>
-            <p>{{ message }}</p>
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span9">
+          <div class="content">
+            {% for message in messages %}
+              <div class="alert-message alert-{{ message.tags }}">
+                <a class="close" href="#">×</a>
+                <p>{{ message }}</p>
+              </div>
+            {% endfor %}
+            
+            <div class="page-header">
+              <h1>{% block content_title %}{% endblock %}</h1>
+            </div>
+            <div class="row-fluid">
+              {% block content %}{% endblock %}
+            </div>
           </div>
-        {% endfor %}
-        <div class="page-header">
-          <h1>{% block content_title %}{% endblock %}</h1>
         </div>
-        <div class="row">
-          <div class="span12">
-            {% block content %}{% endblock %}
-          </div>
-          <div class="span4 sidebar">
-            {% block sidebar %}{% endblock %}
+        <div class="span3">
+          <div class="well sidebar">
+            {% block sidebar %}
+              {# <ul class="nav nav-list"><li class="nav-header">Header...</li><li class="active">... #}
+            {% endblock %}
           </div>
         </div>
       </div>
-
+      <hr />
       <footer>
         <p>Shell site</p>
       </footer>
-
     </div> <!-- /container -->
   </body>
 </html>
