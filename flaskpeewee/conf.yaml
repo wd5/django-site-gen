@@ -25,8 +25,10 @@ files:
     '%(project_root)sapi.py': api.py
     '%(project_root)sapp.py': app.py
     '%(project_root)sauth.py': auth.py
+    '%(project_root)scache.py': cache.py
     '%(project_root)scommands.py': commands.py
     '%(project_root)sconfig.py': config.py
+    '%(project_root)simg_utils.py': img_utils.py
     '%(project_root)smain.py': main.py
     '%(project_root)smodels.py': models.py
     '%(project_root)sviews.py': views.py

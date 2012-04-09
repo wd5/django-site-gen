@@ -1,0 +1,15 @@
+{% extends "admin/panels/base.html" %}
+
+{% block panel_title %}{{ panel.title }}{% endblock %}
+
+{% block panel_content %}
+  <h4>Provision new API Key</h4>
+  <form method="post" action="{{ url_for(panel.get_url_name('provision')) }}">
+    <p>
+      <select name="user">
+        {% for user in user_list %}<option value="{{ user.id }}">{{ user.username }}</option>{% endfor %}
+      </select>
+    </p>
+    <p><button type="submit" class="btn small">Save</button></p>
+  </form>
+{% endblock %}
