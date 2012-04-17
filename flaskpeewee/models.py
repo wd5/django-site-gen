@@ -30,7 +30,7 @@ class APIKey(db.Model):
 
     def create_key_secret(self):
         return (
-            sha1('%s-%s-%s' % (app.config['SECRET_KEY'], self.user.username, self.user.password)).hexdigest()[:12],
+            sha1('%s-%s' % (app.config['SECRET_KEY'], self.user.username).hexdigest()[:12],
             sha1('%s-%s' % (app.config['SECRET_KEY'], random.random())).hexdigest(),
         )
 
